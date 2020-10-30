@@ -26,48 +26,58 @@ class WeatherForecast extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        const Spacer(),
-        Column(
-          children: [
-            const SizedBox(height: 48),
-            Text(
-              'Today\'s Forecast',
-              style: theme.textTheme.headline6,
-            ),
-            Container(
-              constraints: const BoxConstraints(minWidth: 100, maxWidth: 300),
-              child: Theme(
-                data: theme.copyWith(
-                  cardTheme: theme.cardTheme.copyWith(
-                    color: Colors.black26,
-                    shape: const CircleBorder(),
-                  ),
-                  textTheme: theme.textTheme.copyWith(
-                    bodyText2: theme.textTheme.bodyText2.copyWith(fontSize: 24),
-                  ),
-                ),
-                child: WeatherCard.forecast(today),
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: FractionalOffset(0.2, 0),
+          end: FractionalOffset(1, 0.6),
+          colors: [Colors.blue[200], Colors.blueAccent[200]],
+        ),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Spacer(),
+          Column(
+            children: [
+              const SizedBox(height: 48),
+              Text(
+                'Today\'s Forecast',
+                style: theme.textTheme.headline6,
               ),
-            ),
-            const SizedBox(height: 8),
-            Text(today.description),
-          ],
-        ),
-        const Spacer(),
-        Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text('This Week\'s Forecast',
-                style: Theme.of(context).textTheme.headline6),
-            WeeklyForecastCompact(forecasts: _list),
-          ],
-        ),
-        const SizedBox(height: 24),
-      ],
+              Container(
+                constraints: const BoxConstraints(minWidth: 100, maxWidth: 300),
+                child: Theme(
+                  data: theme.copyWith(
+                    cardTheme: theme.cardTheme.copyWith(
+                      color: Colors.black26,
+                      shape: const CircleBorder(),
+                    ),
+                    textTheme: theme.textTheme.copyWith(
+                      bodyText2:
+                          theme.textTheme.bodyText2.copyWith(fontSize: 24),
+                    ),
+                  ),
+                  child: WeatherCard.forecast(today),
+                ),
+              ),
+              const SizedBox(height: 8),
+              Text(today.description),
+            ],
+          ),
+          const Spacer(),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text('This Week\'s Forecast',
+                  style: Theme.of(context).textTheme.headline6),
+              WeeklyForecastCompact(forecasts: _list),
+            ],
+          ),
+          const SizedBox(height: 24),
+        ],
+      ),
     );
   }
 }

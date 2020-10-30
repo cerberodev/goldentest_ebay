@@ -26,61 +26,52 @@ class WeatherForecast extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Container(
-      decoration: BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment(
-                  0.8, 0.0), // 10% of the width, so there are ten blinds.
-              colors: <Color>[
-            const Color(0xffee0000),
-            const Color(0xffeeee00)
-          ] // repeats the gradient over the canvas
-              )),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const Spacer(),
-          Column(
-            children: [
-              const SizedBox(height: 48),
-              Text(
-                'Today\'s Forecast',
-                style: theme.textTheme.headline6,
-              ),
-              Container(
-                constraints: const BoxConstraints(minWidth: 100, maxWidth: 300),
-                child: Theme(
-                  data: theme.copyWith(
-                    cardTheme: theme.cardTheme.copyWith(
-                      color: Colors.black26,
-                      shape: const CircleBorder(),
-                    ),
-                    textTheme: theme.textTheme.copyWith(
-                      bodyText2:
-                          theme.textTheme.bodyText2.copyWith(fontSize: 24),
-                    ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const Spacer(),
+        Column(
+          children: [
+            const SizedBox(height: 48),
+            Text(
+              'Today\'s Forecast',
+              style: theme.textTheme.headline6,
+            ),
+            Container(
+              constraints: const BoxConstraints(minWidth: 100, maxWidth: 300),
+              child: Theme(
+                data: theme.copyWith(
+                  cardTheme: theme.cardTheme.copyWith(
+                    color: Colors.black26,
+                    shape: const CircleBorder(),
                   ),
-                  child: WeatherCard.forecast(today),
+                  textTheme: theme.textTheme.copyWith(
+                    bodyText2: theme.textTheme.bodyText2.copyWith(fontSize: 24),
+                  ),
                 ),
+                child: WeatherCard.forecast(today),
               ),
-              const SizedBox(height: 8),
-              Text(today.description),
-            ],
-          ),
-          const Spacer(),
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text('This Week\'s Forecast',
-                  style: Theme.of(context).textTheme.headline6),
+            ),
+            const SizedBox(height: 8),
+            Text(today.description),
+          ],
+        ),
+        const Spacer(),
+        Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text('This Week\'s Forecast',
+                style: Theme.of(context).textTheme.headline6),
+            if (MediaQuery.of(context).size.width > 400 &&
+                MediaQuery.of(context).size.height > 600)
+              WeeklyForecastExpanded(forecasts: _list)
+            else
               WeeklyForecastCompact(forecasts: _list),
-            ],
-          ),
-          const SizedBox(height: 24),
-        ],
-      ),
+          ],
+        ),
+        const SizedBox(height: 24),
+      ],
     );
   }
 }
@@ -338,6 +329,12 @@ const List<Forecast> thisWeek = [
     weather: Weather.rain,
     temp: 65,
     day: 'Tuesday',
+    description: 'Partly cloudy. High 90F. Winds W at 5 to 10 mph.',
+  ),
+  Forecast(
+    weather: Weather.cold,
+    temp: 7,
+    day: 'Wednesday',
     description: 'Partly cloudy. High 90F. Winds W at 5 to 10 mph.',
   ),
   Forecast(

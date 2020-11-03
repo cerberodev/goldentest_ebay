@@ -27,23 +27,22 @@ class WeatherForecast extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      mainAxisSize: MainAxisSize.max,
       children: [
-        const Spacer(),
         Column(
           children: [
-            const SizedBox(height: 48),
             Text(
               'Today\'s Forecast',
               style: theme.textTheme.headline6,
             ),
+            const SizedBox(height: 18),
             Container(
               constraints: const BoxConstraints(minWidth: 100, maxWidth: 300),
               child: Theme(
                 data: theme.copyWith(
                   cardTheme: theme.cardTheme.copyWith(
-                    color: Colors.black26,
+                    color: const Color(0xffd1e231),
                     shape: const CircleBorder(),
                   ),
                   textTheme: theme.textTheme.copyWith(
@@ -53,16 +52,16 @@ class WeatherForecast extends StatelessWidget {
                 child: WeatherCard.forecast(today),
               ),
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 18),
             Text(today.description),
           ],
         ),
-        const Spacer(),
         Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Text('This Week\'s Forecast',
                 style: Theme.of(context).textTheme.headline6),
+            const SizedBox(height: 18),
             if (MediaQuery.of(context).size.width > 400 &&
                 MediaQuery.of(context).size.height > 600)
               WeeklyForecastExpanded(forecasts: _list)
@@ -70,7 +69,6 @@ class WeatherForecast extends StatelessWidget {
               WeeklyForecastCompact(forecasts: _list),
           ],
         ),
-        const SizedBox(height: 24),
       ],
     );
   }
@@ -204,7 +202,7 @@ class WeatherCard extends StatelessWidget {
       width: 180,
       child: Card(
         shape: cardTheme.shape ?? _cardShape,
-        color: cardTheme.color ?? const Color.fromARGB(255, 36, 51, 66),
+        color: cardTheme.color ?? const Color(0xffd1e231),
         elevation: cardTheme.elevation ?? 1,
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -232,15 +230,15 @@ class WeatherCard extends StatelessWidget {
 
   Text _description() => Text(
         _textForWeather(weather),
-        style: const TextStyle(color: Colors.white),
+        style: const TextStyle(color: Colors.black87),
         textAlign: TextAlign.center,
       );
 
-  Text _day() => Text(day, style: const TextStyle(color: Colors.white));
+  Text _day() => Text(day, style: const TextStyle(color: Colors.black87));
 
   Image _image() => Image.asset(
         'assets/${_assetForWeather(weather)}',
-        color: Colors.white,
+        color: Colors.blueGrey,
         width: 40,
         height: 40,
       );

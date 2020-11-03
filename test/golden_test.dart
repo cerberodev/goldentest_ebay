@@ -21,17 +21,15 @@ void main() {
   group('GoldenBuilder', () {
     testGoldens('Weather Card - Accessibility', (tester) async {
       final gb = GoldenBuilder.grid(
-          columns: 2, widthToHeightRatio: 1, bgColor: Colors.red[100])
+          columns: 2, widthToHeightRatio: 1, bgColor: Colors.green[100])
+        ..addScenario('Example Sunny',
+            const WeatherCard(temp: 66, weather: Weather.sunny))
+        ..addScenario('Example Cloudy',
+            const WeatherCard(temp: 56, weather: Weather.cloudy))
+        ..addScenario('Example Raining',
+            const WeatherCard(temp: 8, weather: Weather.rain))
         ..addScenario(
-            'Sunny', const WeatherCard(temp: 66, weather: Weather.sunny))
-        ..addScenario(
-            'Cloudy', const WeatherCard(temp: 56, weather: Weather.cloudy))
-        ..addScenario(
-            'Raining', const WeatherCard(temp: 37, weather: Weather.rain))
-        ..addScenario(
-          'Cold',
-          const WeatherCard(temp: 25, weather: Weather.cold),
-        );
+            'Example Cold', const WeatherCard(temp: 25, weather: Weather.cold));
 
       await tester.pumpWidgetBuilder(
         gb.build(),
@@ -40,6 +38,7 @@ void main() {
       await screenMatchesGolden(tester, 'wather_types_gird');
     });
   });
+
   group('Multi-Screen Golden', () {
     testGoldens('Example of testing a responsive layout', (tester) async {
       await tester.pumpWidgetBuilder(const WeatherForecast());
@@ -71,6 +70,7 @@ void main() {
       overrideGoldenHeight: 1200,
     );
   });
+
   group('GoldenBuilder examples of accessibility testing', () {
     // With those test we want to make sure our widgets look right when user changes system font size
     testGoldens('Card should look right when user bumps system font size',
